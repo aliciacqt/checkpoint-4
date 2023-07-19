@@ -1,12 +1,19 @@
-import Home from "./pages/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import EventsCalendar from "./pages/EventsCalendar";
+import Admin from "./pages/Admin";
 
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
     <div className="App">
-      <Home />
-      <p>coucou</p>
+      <Router>
+        <Routes>
+          <Route path="/" /* element={<Home />} */ />
+          <Route path="/calendar" element={<EventsCalendar />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

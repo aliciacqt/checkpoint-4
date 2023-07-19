@@ -65,13 +65,14 @@ CREATE TABLE `event` (
     '1re GM',
     'Entre deux guerres',
     '2nde GM',
-    '1945 et plus'
+    '1945 et plus',
+    'autre'
   ) NOT NULL,
   `poster` varchar(255) DEFAULT NULL,
   `price` decimal(5, 2) NOT NULL,
   `useful_information` text,
   `link` varchar(255) DEFAULT NULL,
-  `organizer_id` int DEFAULT NULL,
+  `organizer_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `organizer_id` (`organizer_id`),
   CONSTRAINT `event_ibfk_1` FOREIGN KEY (`organizer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
@@ -142,7 +143,7 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `role` enum('user', 'admin') DEFAULT `user`,
+  `role` enum('organizer', 'photograph', 'admin') NOT NULL,
   `firstname` varchar(100) DEFAULT NULL,
   `lastname` varchar(100) DEFAULT NULL,
   `asso_name` varchar(255) DEFAULT NULL,
