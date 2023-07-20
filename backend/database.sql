@@ -69,7 +69,7 @@ CREATE TABLE `event` (
     'autre'
   ) NOT NULL,
   `poster` varchar(255) DEFAULT NULL,
-  `price` decimal(5, 2) NOT NULL,
+  `price` varchar(20) DEFAULT NULL,
   `useful_information` text,
   `link` varchar(255) DEFAULT NULL,
   `organizer_id` int NOT NULL,

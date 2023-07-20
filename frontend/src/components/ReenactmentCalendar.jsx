@@ -5,6 +5,7 @@ import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import fr from "date-fns/locale/fr";
 import { useEffect, useState } from "react";
+import EventDetailsForCalendar from "./EventDetailsForCalendar";
 
 export default function ReenactmentCalendar() {
   const locales = { fr };
@@ -64,7 +65,7 @@ export default function ReenactmentCalendar() {
         />
       </div>
       {eventsList.map((event) => (
-        <p>{event.period}</p>
+        <EventDetailsForCalendar event={event} />
       ))}
     </>
   );

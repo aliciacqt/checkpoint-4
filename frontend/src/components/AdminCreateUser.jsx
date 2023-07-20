@@ -102,8 +102,8 @@ export default function AdminCreateUser({
             Rôle <strong>*</strong>
           </p>
           <label htmlFor="role" className="label-with-link-to-add-data">
-            <select name="role" onChange={handleChangeRole}>
-              <option value={role}>Veuillez sélectionner un rôle</option>
+            <select name="role" value={role} onChange={handleChangeRole}>
+              <option value="">Veuillez sélectionner un rôle</option>
               {roles.map((oneRole) => (
                 <option value={oneRole.id} key={oneRole.id}>
                   {oneRole.nameInFrench}
