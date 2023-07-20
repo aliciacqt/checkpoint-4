@@ -35,7 +35,7 @@ export default function ReenactmentCalendar() {
   const [eventsList, setEventsList] = useState("");
 
   const getAllEvents = () => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events/nextEvents`, {
       // credentials: "include",
     })
       .then((res) => res.json())
