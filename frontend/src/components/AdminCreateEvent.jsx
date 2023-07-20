@@ -331,9 +331,7 @@ export default function AdminCreateEvent() {
                 value={organizerId}
                 onChange={handleChangeOrganizerId}
               >
-                <option value={organizerId}>
-                  Veuillez sélectionner un organisateur
-                </option>
+                <option value="">Veuillez sélectionner un organisateur</option>
                 {organizers.map((organizer) => (
                   <option value={organizer.id} key={organizer.id}>
                     {organizer.assoName} {organizer.firstname}{" "}

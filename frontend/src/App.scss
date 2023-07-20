@@ -5,38 +5,76 @@
   padding: 0;
   box-sizing: border-box;
 
-  h1 {
+  img {
+    width: 150px;
+  }
+
+  h1,
+  p {
+    color: #000000;
     text-align: center;
   }
 
-  a {
-    display: block;
-    text-align: center;
+  // ----------------- NavBar -----------------
+  nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+      justify-content: end;
+    }
+
+    ul.nav-menu-items {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1rem;
+
+      li.nav-text {
+        list-style: none;
+
+        a {
+          text-decoration: none;
+          color: #000000;
+          padding: 1rem;
+        }
+
+        a:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
   }
+
+  // ----------------- HomePage -----------------
+
+  img.background-img {
+    min-width: 100%;
+    z-index: -1;
+    position: fixed;
+    object-fit: cover;
+    object-position: 50% 50%;
+    top: 0;
+  }
+
+  .home {
+    height: calc(100vh - 55px);
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    #home-text {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 1rem;
+    }
+  }
+
+  // ----------------- Calendar -----------------
 
   #calendar {
     width: 80%;
     margin: 0 auto;
-  }
-
-  img {
-    width: 150px;
-    display: block;
-  }
-
-  .home {
-    height: 100vh;
-    background-image: url("../../backend/public/assets/images/photos/1689846917731-photo-246372629_232230742226278_522092092175206516_n.jpg");
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    h1 {
-      width: 100%;
-      padding: 1rem;
-      color: #000000;
-      background-color: rgba(255, 204, 204, 0.2);
-    }
   }
 }

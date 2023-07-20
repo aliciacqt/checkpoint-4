@@ -7,13 +7,27 @@ class EventManager extends AbstractManager {
 
   findAll() {
     return this.database.query(
-      `select id, name, date, place, period, poster, useful_information AS usefulInformation, link, organizer_id AS organizerId from  ${this.table}`
+      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, p.file_name AS fileName from  ${this.table} AS e LEFT JOIN photo AS p ON e.id = p.event_id`
+    );
+  }
+
+  findAllPast(date) {
+    return this.database.query(
+      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, p.file_name AS fileName from  ${this.table} AS e LEFT JOIN photo AS p ON e.id = p.event_id WHERE e.date < NOW()`,
+      [date]
+    );
+  }
+
+  findAllNext(date) {
+    return this.database.query(
+      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, p.file_name AS fileName from  ${this.table} AS e LEFT JOIN photo AS p ON e.id = p.event_id WHERE e.date >= NOW()`,
+      [date]
     );
   }
 
   find(id) {
     return this.database.query(
-      `select id, name, date, place, period, poster, useful_information AS usefulInformation, link, organizer_id AS organizerId from  ${this.table} where id = ?`,
+      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, p.file_name AS fileName from  ${this.table} AS e JOIN photo AS p ON e.id = p.event_id where e.id = ?`,
       [id]
     );
   }

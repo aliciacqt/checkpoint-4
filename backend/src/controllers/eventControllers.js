@@ -12,6 +12,30 @@ const browse = (req, res) => {
     });
 };
 
+const browseNext = (req, res) => {
+  models.event
+    .findAllNext()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const browsePast = (req, res) => {
+  models.event
+    .findAllPast()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.event
     .find(req.params.id)
@@ -84,6 +108,8 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseNext,
+  browsePast,
   read,
   edit,
   add,

@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
 
 export default function EventDetailsForCalendar({ event }) {
+  const dateToDisplay = new Intl.DateTimeFormat("fr-FR").format(
+    new Date(event.date)
+  );
+
   return (
     <p>
       <img
@@ -10,8 +14,8 @@ export default function EventDetailsForCalendar({ event }) {
         alt={`${event.name}-attachment`}
       />
       {event.name}, {event.period}, organisé par {event.organizerId}, le{" "}
-      {event.date}, à {event.place},{" "}
-      {!event.price ? "gratuit" : `${event.price}€`}
+      {dateToDisplay}, à {event.place},{" "}
+      {event.price === "gratuit" ? "gratuit" : `${event.price}€`}
     </p>
   );
 }
