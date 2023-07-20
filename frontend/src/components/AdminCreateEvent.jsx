@@ -141,13 +141,14 @@ export default function AdminCreateEvent() {
   };
 
   const handleChangePrice = (e) => {
-    const priceToUpdate = parseFloat(e.target.value);
+    setPrice(e.target.value);
+    // const priceToUpdate = parseFloat(e.target.value);
 
-    if (!Number.isNaN(priceToUpdate)) {
-      setPrice(priceToUpdate);
-    } else {
-      alert("Veuillez vérifier votre saisie.");
-    }
+    // if (!Number.isNaN(priceToUpdate)) {
+    //   setPrice(priceToUpdate);
+    // } else {
+    //   alert("Veuillez vérifier votre saisie.");
+    // }
   };
 
   const handleChangeUsefulInformation = (e) => {
@@ -176,7 +177,7 @@ export default function AdminCreateEvent() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!name || !date || !place || !period || !price || !organizerId) {
+    if (!name || !date || !place || !period || !organizerId) {
       alert("Veuillez remplir tous les champs obligatoires.");
     } else {
       const modelData = new FormData();
@@ -184,11 +185,13 @@ export default function AdminCreateEvent() {
       modelData.append("date", date);
       modelData.append("place", place);
       modelData.append("period", period);
-      modelData.append("price", price);
+      modelData.append("price", price || "gratuit");
       modelData.append("organizerId", organizerId);
       if (poster) {
         modelData.append("poster", poster);
       }
+      // if (price) {
+      // }
       if (usefulInformation) {
         modelData.append("usefulInformation", usefulInformation);
       }
@@ -206,6 +209,15 @@ export default function AdminCreateEvent() {
       })
         // .then((res) => res.json())
         .then(() => {
+          setName("");
+          setDate("");
+          setPlace("");
+          setPeriod("");
+          setPoster("");
+          setPrice("");
+          setUsefulInformation("");
+          setLink("");
+          setOrganizerId("");
           alert("L'évènement a été ajouté au calendrier !");
         })
         .catch((err) => {
@@ -259,10 +271,12 @@ export default function AdminCreateEvent() {
               Période représentée <strong>*</strong>
             </p>
             <label htmlFor="period" className="label-with-link-to-add-data">
-              <select name="period" onChange={handleChangePeriod}>
-                <option value={period}>
-                  Veuillez sélectionner une période
-                </option>
+              <select
+                name="period"
+                value={period}
+                onChange={handleChangePeriod}
+              >
+                <option value="">Veuillez sélectionner une période</option>
                 {periods.map((onePeriod) => (
                   <option value={onePeriod.id} key={onePeriod.id}>
                     {onePeriod.name}
@@ -274,17 +288,16 @@ export default function AdminCreateEvent() {
             <label htmlFor="poster">
               <input type="file" id="poster" onChange={handleChangePoster} />
             </label>
-            <p>
-              Prix, en € <strong>*</strong>
-            </p>
+            <p>Prix, en €</p>
             <label htmlFor="price">
               <input
-                type="number"
-                min="0"
-                max="2000"
-                step="0.01"
+                type="text"
+                // min="0"
+                // max="2000"
+                // step="0.01"
                 id="price"
                 value={price}
+                placeholder="gratuit"
                 onChange={handleChangePrice}
               />
             </label>
@@ -313,8 +326,14 @@ export default function AdminCreateEvent() {
               htmlFor="organizerId"
               className="label-with-link-to-add-data"
             >
-              <select name="organizerId" onChange={handleChangeOrganizerId}>
-                <option value="">Veuillez sélectionner un organisateur</option>
+              <select
+                name="organizerId"
+                value={organizerId}
+                onChange={handleChangeOrganizerId}
+              >
+                <option value={organizerId}>
+                  Veuillez sélectionner un organisateur
+                </option>
                 {organizers.map((organizer) => (
                   <option value={organizer.id} key={organizer.id}>
                     {organizer.assoName} {organizer.firstname}{" "}

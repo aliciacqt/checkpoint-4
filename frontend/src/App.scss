@@ -5,14 +5,38 @@
   padding: 0;
   box-sizing: border-box;
 
-  // text-align: center;
-
   h1 {
+    text-align: center;
+  }
+
+  a {
+    display: block;
     text-align: center;
   }
 
   #calendar {
     width: 80%;
     margin: 0 auto;
+  }
+
+  img {
+    width: 150px;
+    display: block;
+  }
+
+  .home {
+    height: 100vh;
+    background-image: url("../../backend/public/assets/images/photos/1689846917731-photo-246372629_232230742226278_522092092175206516_n.jpg");
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      width: 100%;
+      padding: 1rem;
+      color: #000000;
+      background-color: rgba(255, 204, 204, 0.2);
+    }
   }
 }

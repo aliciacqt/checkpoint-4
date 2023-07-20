@@ -169,11 +169,13 @@
   }
 }
 
-.organizer-hidden {
+.organizer-hidden,
+.event-hidden {
   display: none;
 }
 
-.organizer-visible {
+.organizer-visible,
+.event-visible {
   display: initial;
   position: fixed;
   z-index: 4;
@@ -187,7 +189,8 @@
   }
 }
 
-.organizer-visible {
+.organizer-visible,
+.event-visible {
   button.create-small-data,
   button.cancel-form {
     grid-area: initial;
