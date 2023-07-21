@@ -24,11 +24,67 @@ const browseNext = (req, res) => {
     });
 };
 
+// const browsePast = (req, res) => {
+//   models.event
+//     .findAllPast()
+//     .then(([rows]) => {
+//       res.send(rows);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.sendStatus(500);
+//     });
+// };
+
 const browsePast = (req, res) => {
   models.event
     .findAllPast()
     .then(([rows]) => {
-      res.send(rows);
+      if (rows.length === 0) {
+        res.json([]);
+      } else {
+        const events = [];
+        for (let i = 0; i < rows.length; i += 1) {
+          const {
+            id,
+            name,
+            date,
+            place,
+            period,
+            poster,
+            price,
+            usefulInformation,
+            link,
+            organizerId,
+            fileName,
+          } = rows[i];
+          if (i !== 0 && events[events.length - 1].id === id) {
+            events[events.length - 1].count += 1;
+            events[events.length - 1].photos.push({
+              fileName,
+            });
+          } else {
+            events.push({
+              id,
+              name,
+              date,
+              place,
+              period,
+              poster,
+              price,
+              usefulInformation,
+              link,
+              organizerId,
+              photos: [
+                {
+                  fileName,
+                },
+              ],
+            });
+          }
+        }
+        res.send(events);
+      }
     })
     .catch((err) => {
       console.error(err);

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import AdminCreateUser from "./AdminCreateUser";
 import "./adminForms.scss";
 
-export default function AdminCreateEvent() {
+export default function AdminCreateEvent({ displayEventForm, getAllEvents }) {
   const [organizers, setOrganizers] = useState();
 
   const [name, setName] = useState("");
@@ -209,6 +210,7 @@ export default function AdminCreateEvent() {
       })
         // .then((res) => res.json())
         .then(() => {
+          getAllEvents();
           setName("");
           setDate("");
           setPlace("");
@@ -347,9 +349,23 @@ export default function AdminCreateEvent() {
                 +
               </button>
             </label>
-            <button type="submit" className="general">
-              Ajouter l'évènement au calendrier
-            </button>
+
+            <div className="button-container">
+              <button
+                type="submit"
+                onClick={displayEventForm}
+                className="general"
+              >
+                Enregistrer l'évènement
+              </button>
+              <button
+                type="button"
+                onClick={displayEventForm}
+                className="create-small-data cancel-form"
+              >
+                Annuler
+              </button>
+            </div>
           </form>
         </section>
       </div>
@@ -362,3 +378,13 @@ export default function AdminCreateEvent() {
     </>
   );
 }
+
+AdminCreateEvent.propTypes = {
+  displayEventForm: PropTypes.func,
+  getAllEvents: PropTypes.func,
+};
+
+AdminCreateEvent.defaultProps = {
+  displayEventForm: undefined,
+  getAllEvents: undefined,
+};

@@ -7,20 +7,21 @@ class EventManager extends AbstractManager {
 
   findAll() {
     return this.database.query(
-      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, p.file_name AS fileName from  ${this.table} AS e LEFT JOIN photo AS p ON e.id = p.event_id`
+      `select id, name, date, place, period, poster, price, useful_information AS usefulInformation, link, organizer_id AS organizerId from  ${this.table}`
     );
   }
 
   findAllPast(date) {
     return this.database.query(
-      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, p.file_name AS fileName from  ${this.table} AS e LEFT JOIN photo AS p ON e.id = p.event_id WHERE e.date < NOW()`,
+      // `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId from  ${this.table} AS e WHERE e.date < NOW()`,
+      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, u.firstname, u.lastname, u.asso_name AS assoName, p.file_name AS fileName from  ${this.table} AS e LEFT JOIN photo AS p ON e.id = p.event_id JOIN user AS u ON u.id = e.organizer_id WHERE e.date < NOW() ORDER BY e.date DESC`,
       [date]
     );
   }
 
   findAllNext(date) {
     return this.database.query(
-      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, p.file_name AS fileName from  ${this.table} AS e LEFT JOIN photo AS p ON e.id = p.event_id WHERE e.date >= NOW()`,
+      `select e.id, e.name, e.date, e.place, e.period, e.poster, e.price, e.useful_information AS usefulInformation, e.link, e.organizer_id AS organizerId, u.firstname, u.lastname, u.asso_name AS assoName, p.file_name AS fileName from  ${this.table} AS e LEFT JOIN photo AS p ON e.id = p.event_id JOIN user AS u ON u.id = e.organizer_id WHERE e.date >= NOW()`,
       [date]
     );
   }

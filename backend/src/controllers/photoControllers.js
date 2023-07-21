@@ -12,6 +12,22 @@ const browse = (req, res) => {
     });
 };
 
+const browseByEvent = (req, res) => {
+  models.photo
+    .findPhotosByEvent(req.params.id)
+    .then(([rows]) => {
+      if (!rows[0]) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.photo
     .find(req.params.id)
@@ -84,6 +100,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseByEvent,
   read,
   edit,
   add,

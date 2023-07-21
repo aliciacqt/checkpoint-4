@@ -166,20 +166,22 @@ export default function AdminCreateUser({
               onChange={handleChangeDescription}
             />
           </label>
-          <button
-            type="submit"
-            onClick={displayOrganizerForm}
-            className="general"
-          >
-            Enregistrer l'organisateur
-          </button>
-          <button
-            type="button"
-            onClick={displayOrganizerForm}
-            className="create-small-data cancel-form"
-          >
-            Annuler
-          </button>
+          <div className="button-container">
+            <button
+              type="submit"
+              onClick={displayOrganizerForm}
+              className="general"
+            >
+              Enregistrer l'utilisateur
+            </button>
+            <button
+              type="button"
+              onClick={displayOrganizerForm}
+              className="create-small-data cancel-form"
+            >
+              Annuler
+            </button>
+          </div>
         </form>
       </section>
     </div>
@@ -187,6 +189,11 @@ export default function AdminCreateUser({
 }
 
 AdminCreateUser.propTypes = {
-  displayOrganizerForm: PropTypes.func.isRequired,
-  getAllOrganizers: PropTypes.func.isRequired,
+  displayOrganizerForm: PropTypes.func,
+  getAllOrganizers: PropTypes.func,
+};
+
+AdminCreateUser.defaultProps = {
+  displayOrganizerForm: undefined,
+  getAllOrganizers: undefined,
 };

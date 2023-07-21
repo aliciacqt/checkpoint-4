@@ -1,5 +1,6 @@
 // import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import EventCarousel from "../components/EventCarousel";
 
 export default function Gallery() {
   const [events, setEvents] = useState();
@@ -9,7 +10,10 @@ export default function Gallery() {
       // credentials: "include",
     })
       .then((res) => res.json())
-      .then((data) => setEvents(data))
+      .then((data) => {
+        setEvents(data);
+        // console.log(data);
+      })
       .catch((err) => console.error(err));
   };
 
@@ -24,13 +28,8 @@ export default function Gallery() {
   return (
     <div>
       {events.map((event) => (
-        <div>
-          <img
-            src={`${import.meta.env.VITE_BACKEND_URL_IMAGES}/photos/${
-              event.fileName
-            }`}
-            alt={`${event.name}-attachment-${event.id}`}
-          />
+        <div className="carousel">
+          <EventCarousel event={event} key={event.id} />
         </div>
       ))}
     </div>

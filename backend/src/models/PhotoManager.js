@@ -11,10 +11,20 @@ class PhotoManager extends AbstractManager {
     );
   }
 
-  find(id) {
+  findPhotosByEvent(eventId) {
     return this.database.query(
-      `select id, file_name AS fileName, event_id AS eventId from  ${this.table} where id = ?`,
-      [id]
+      `SELECT p.file_name AS fileName, COUNT(e.id), p.event_id AS eventId from ${this.table} AS p
+      JOIN event AS e ON p.event_id = e.id
+      WHERE p.event_id = ?
+      GROUP BY p.event_id`,
+      [eventId]
+    );
+  }
+
+  find(eventId) {
+    return this.database.query(
+      `select p.id, p.file_name AS fileName, p.event_id AS eventId from  ${this.table} AS p JOIN event AS e ON p.event_id = e.id where event_id = ?`,
+      [eventId]
     );
   }
 
