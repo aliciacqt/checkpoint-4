@@ -6,17 +6,30 @@ export default function EventDetailsForCalendar({ event }) {
   );
 
   return (
-    <p>
-      <img
-        src={`${import.meta.env.VITE_BACKEND_URL_IMAGES}/posters/${
-          event.poster
-        }`}
-        alt={`${event.name}-attachment`}
-      />
-      {event.name}, {event.period}, organisé par {event.organizerId}, le{" "}
-      {dateToDisplay}, à {event.place},{" "}
-      {event.price === "gratuit" ? "gratuit" : `${event.price}€`}
-    </p>
+    <div className="flex-column">
+      <p className="event-details">
+        {/* <img
+          src={
+            `${import.meta.env.VITE_BACKEND_URL_IMAGES}/posters/${
+              event.poster
+            }` || null
+          }
+          alt={event.poster ? `${event.name}-attachment` : null}
+        /> */}
+        {dateToDisplay}, à {event.place} : {event.name}
+        <br />
+        {event.period}
+        <br />
+        organisé par{" "}
+        {event.assoName
+          ? event.assoName
+          : `${event.firstname} ${event.lastname}`}
+        <br />
+        Entrée : {event.price === "gratuit" ? "gratuit" : `${event.price}€`}
+        <br />
+        <a href={event.link}>Plus d'informations ici</a>
+      </p>
+    </div>
   );
 }
 
@@ -30,6 +43,8 @@ EventDetailsForCalendar.propTypes = {
     price: PropTypes.string,
     usefulInformation: PropTypes.string,
     link: PropTypes.string,
-    organizerId: PropTypes.number,
+    assoName: PropTypes.string,
+    firstname: PropTypes.string,
+    lastname: PropTypes.string,
   }).isRequired,
 };

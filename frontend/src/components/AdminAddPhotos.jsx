@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import AdminCreateEvent from "./AdminCreateEvent";
 import "./adminForms.scss";
 
-export default function AdminAddPhotos() {
+export default function AdminAddPhotos({ displayPhotoForm }) {
   const [events, setEvents] = useState();
 
   const [fileName, setFileName] = useState("");
@@ -116,7 +117,10 @@ export default function AdminAddPhotos() {
             <p>
               Évènement <strong>*</strong>
             </p>
-            <label htmlFor="event">
+            <label
+              htmlFor="organizerId"
+              className="label-with-link-to-add-data"
+            >
               <select
                 name="event"
                 value={eventId}
@@ -127,7 +131,10 @@ export default function AdminAddPhotos() {
                 </option>
                 {events.map((event) => (
                   <option value={event.id} key={event.id}>
-                    {event.name}, {event.place} - {event.date}
+                    {event.name}, {event.place} -{" "}
+                    {new Intl.DateTimeFormat("fr-FR").format(
+                      new Date(event.date)
+                    )}
                   </option>
                 ))}
               </select>
@@ -139,9 +146,22 @@ export default function AdminAddPhotos() {
                 +
               </button>
             </label>
-            <button type="submit" className="general">
-              Ajouter la photo
-            </button>
+            <div className="button-container">
+              <button
+                type="submit"
+                onClick={displayPhotoForm}
+                className="general"
+              >
+                Ajouter la photo
+              </button>
+              <button
+                type="button"
+                onClick={displayPhotoForm}
+                className="create-small-data cancel-form"
+              >
+                Annuler
+              </button>
+            </div>
           </form>
         </section>
       </div>
@@ -154,3 +174,11 @@ export default function AdminAddPhotos() {
     </>
   );
 }
+
+AdminAddPhotos.propTypes = {
+  displayPhotoForm: PropTypes.func,
+};
+
+AdminAddPhotos.defaultProps = {
+  displayPhotoForm: undefined,
+};

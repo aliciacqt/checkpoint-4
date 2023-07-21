@@ -22,6 +22,7 @@ export default function ReenactmentCalendar() {
     date: "Date",
     time: "Heure",
     event: "Évènement",
+    noEventsInRange: "Pas d'évènements.",
   };
 
   const localizer = dateFnsLocalizer({
@@ -33,6 +34,31 @@ export default function ReenactmentCalendar() {
   });
 
   const [eventsList, setEventsList] = useState("");
+  const [period, setPeriod] = useState("Tout");
+
+  const allPeriods = [
+    "Préhistoire",
+    "Antiquité",
+    "Moyen-Âge",
+    "Renaissance",
+    "XVIIe siècle",
+    "XVIIIe siècle",
+    "Directoire, Consulat",
+    "Ier Empire",
+    "Période Romantique",
+    "Second Empire",
+    "IIIe République",
+    "Belle Époque",
+    "1re GM",
+    "Entre deux guerres",
+    "2nde GM",
+    "1945 et plus",
+    "autre",
+  ];
+
+  const handleChangePeriod = (e) => {
+    setPeriod(e.target.value);
+  };
 
   const getAllEvents = () => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events/nextEvents`, {
@@ -52,21 +78,36 @@ export default function ReenactmentCalendar() {
   }
 
   return (
-    <>
-      <div id="calendar">
-        <Calendar
-          localizer={localizer}
-          events={eventsList}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500 }}
-          culture="fr"
-          messages={messages}
-        />
+    <div className="component-with-bg">
+      <div className="width-centered">
+        <select name="period" value={period} onChange={handleChangePeriod}>
+          <option value="Tout">Toutes les époques</option>
+          {allPeriods.map((periodSelected) => (
+            <option value={periodSelected} key={periodSelected}>
+              {periodSelected}
+            </option>
+          ))}
+        </select>
+        <div id="calendar">
+          <Calendar
+            localizer={localizer}
+            events={eventsList}
+            startAccessor="start"
+            endAccessor="end"
+            culture="fr"
+            messages={messages}
+          />
+        </div>
+        {period === "Tout"
+          ? eventsList.map((event) => (
+              <EventDetailsForCalendar event={event} key={event.id} />
+            ))
+          : eventsList
+              .filter((event) => event.period === period)
+              .map((event) => (
+                <EventDetailsForCalendar event={event} key={event.id} />
+              ))}
       </div>
-      {eventsList.map((event) => (
-        <EventDetailsForCalendar event={event} />
-      ))}
-    </>
+    </div>
   );
 }
