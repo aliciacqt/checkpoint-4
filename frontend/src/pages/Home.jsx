@@ -1,36 +1,24 @@
-import Counter from "../components/Counter";
-import logo from "../assets/logo.svg";
+import Footer from "../components/Footer";
+import bgimg from "../../../backend/public/assets/images/photos/1689846917731-photo-246372629_232230742226278_522092092175206516_n.jpg";
 
 export default function Home() {
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>Hello Vite + React !</p>
-
-      <Counter />
-
-      <p>
-        Edit <code>App.jsx</code> and save to test HMR updates.
-      </p>
-      <p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {" | "}
-        <a
-          className="App-link"
-          href="https://vitejs.dev/guide/features.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Vite Docs
-        </a>
-      </p>
-    </header>
+    <>
+      <img
+        src={bgimg}
+        alt="background, foggy morning on camp"
+        className="background-img"
+      />
+      <div className="home">
+        <div id="home-text">
+          <h1>Calendrier de la reconstitution historique</h1>
+          <p>
+            Retrouvez, regroupés en un seul et même endroit, tous les évènements
+            de reconstitution historique de France, toutes époques.
+          </p>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
